@@ -1,0 +1,22 @@
+# Dockerfile.streamlit
+FROM python:3.10-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first for caching
+COPY requirements.txt .
+COPY streamlit-requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt -r streamlit-requirements.txt
+
+# Copy application code
+COPY streamlit_app.py .
+COPY .env .
+
+# Expose port
+EXPOSE 8501
+
+# Start command
+CMD ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]

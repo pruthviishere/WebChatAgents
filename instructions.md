@@ -1,0 +1,1 @@
+fastapi dev ./app/fastapi_server.py 

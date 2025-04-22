@@ -4,13 +4,54 @@ from typing import Dict, Any
 
 from app.extractors.factory import ExtractorFactory, ExtractorType
 from app.models.business import BusinessDetails
-from langchain_openai import ChatOpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
-import logging
+from app.utils.logging import logger
+from fastapi import APIRouter, HTTPException, Depends
+ # You'll need to create this if not exists
+from pydantic import BaseModel, HttpUrl
+from app.utils.auth import verify_api_key
 
-logger = logging.getLogger(__name__)
+class WebsiteRequest(BaseModel):
+    url: HttpUrl
 
+# Create the router
+router = APIRouter(
+    prefix="/analyze",
+    tags=["analyzer"]
+)
+# Add the endpoint
+@router.post("/", response_model=BusinessDetails)
+async def analyze_website_endpoint(
+    request: WebsiteRequest,
+    # api_key_valid: bool = Depends(verify_api_key)
+):
+    """
+    Analyze a website homepage to extract business details.
+    """
+    try:
+        # Select best extractor
+        extractor_type = await select_best_extractor(str(request.url))
+        
+        # Create extractor instance
+        extractor = ExtractorFactory.create_extractor(extractor_type)
+        
+        # Extract content
+        extracted_data = await extractor.extract(str(request.url))
+        
+        # Analyze content
+        business_details = await analyze_website(extracted_data, str(request.url))
+        
+        return business_details
+        
+    except Exception as e:
+        logger.error(f"Error analyzing website: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error analyzing website: {str(e)}"
+        )
+    
 async def select_best_extractor(url: str) -> ExtractorType:
     """Select the best extractor for a given URL.
     

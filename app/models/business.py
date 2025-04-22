@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field, HttpUrl,Optional,List
-# Pydantic Models
+from pydantic import BaseModel, Field, HttpUrl
+from typing import Dict, Any, Optional, List
 class WebsiteRequest(BaseModel):
     url: HttpUrl = Field(..., description="URL of the website to analyze")
 

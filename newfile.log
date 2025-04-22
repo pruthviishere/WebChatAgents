@@ -1,0 +1,16 @@
+2025-04-23 01:16:04,092 Started server process [62336]
+2025-04-23 01:16:04,093 Waiting for application startup.
+2025-04-23 01:16:04,094 Starting   vhi
+2025-04-23 01:16:04,094 Application startup complete.
+2025-04-23 01:16:09,310 Selected extractor beautiful_soup for URL: https://example.com/
+2025-04-23 01:16:09,334 Starting new HTTPS connection (1): example.com:443
+2025-04-23 01:16:10,048 https://example.com:443 "GET / HTTP/1.1" 200 648
+2025-04-23 01:16:10,299 load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-23 01:16:10,299 load_verify_locations cafile='/Users/pruthvirajadhav/miniconda3/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-04-23 01:16:10,305 load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-23 01:16:10,305 load_verify_locations cafile='/Users/pruthvirajadhav/miniconda3/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-04-23 01:16:10,311 Error analyzing website: Missing some input keys: {'\n        "company_name"'}
+2025-04-23 01:16:47,812 Shutting down
+2025-04-23 01:16:47,918 Waiting for application shutdown.
+2025-04-23 01:16:47,922 Application shutdown complete.
+2025-04-23 01:16:47,923 Finished server process [62336]

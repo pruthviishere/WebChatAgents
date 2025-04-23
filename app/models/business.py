@@ -1,7 +1,7 @@
-from pydantic import BaseModel, Field, HttpUrl
+from pydantic import BaseModel, Field   
 from typing import Dict, Any, Optional, List
 class WebsiteRequest(BaseModel):
-    url: HttpUrl = Field(..., description="URL of the website to analyze")
+    url: str = Field(..., description="URL of the website to analyze")
 
 class Industry(BaseModel):
     industry: str = Field(..., description="Industry the company belongs to")
@@ -21,7 +21,7 @@ class Location(BaseModel):
 
 class BusinessDetails(BaseModel):
     company_name: str = Field(..., description="Name of the company")
-    website_url: HttpUrl = Field(..., description="URL of the analyzed website")
+    website_url: str = Field(..., description="URL of the analyzed website")
     industry: Industry = Field(..., description="Industry information")
     company_size: CompanySize = Field(..., description="Company size information")
     location: Location = Field(..., description="Location information")
@@ -29,6 +29,6 @@ class BusinessDetails(BaseModel):
     products_services: List[str] = Field(..., description="List of products or services offered")
     technologies: Optional[List[str]] = Field(None, description="Technologies mentioned on the website")
     founded_year: Optional[int] = Field(None, description="Year the company was founded, if available")
-
+    
 class ErrorResponse(BaseModel):
     error: str = Field(..., description="Error message")

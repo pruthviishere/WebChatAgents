@@ -1,7 +1,8 @@
 # app/core/analyzer.py
 import re
+import os
 from typing import Dict, Any
-
+import json
 from app.extractors.factory import ExtractorFactory, ExtractorType
 from app.models.business import BusinessDetails
 from langchain.chat_models import ChatOpenAI
@@ -12,9 +13,22 @@ from fastapi import APIRouter, HTTPException, Depends
  # You'll need to create this if not exists
 from pydantic import BaseModel, HttpUrl
 from app.utils.auth import verify_api_key
+from langchain_core.prompts import PromptTemplate
+from langchain_openai import OpenAI
+from langchain_core.output_parsers import StrOutputParser
+from langchain.output_parsers import PydanticOutputParser
+from langchain_core.runnables import RunnableLambda
+
+import openai
+from langchain_core.prompts import PromptTemplate
+from langchain.output_parsers import PydanticOutputParser
+
+from pydantic import BaseModel, Field
+from langchain_openai import ChatOpenAI
+
 
 class WebsiteRequest(BaseModel):
-    url: HttpUrl
+    url: str = Field(..., description="Website URL to analyze", example="https://example.com")
 
 # Create the router
 router = APIRouter(
@@ -106,79 +120,163 @@ async def analyze_website(extracted_data: Dict[str, Any], url: str) -> BusinessD
         f"Meta Keywords: {meta_keywords}\n\n"
         f"Content:\n{content}"
     )
+    return call_llm(enriched_content,url)
+
+def call_llm_json():
+    pass
+import os
+from openai import OpenAI
+from pydantic import BaseModel, Field
+
+ 
+
+def gpt_call(prompt: str, temperature: float = 0.0) -> str:
+    api_key = os.environ.get("OPENAI_API_KEY")
+    client = OpenAI(api_key=api_key)
     
-    # Initialize LLM
-    llm = ChatOpenAI(
-        model_name="gpt-4-turbo",
-        temperature=0.2
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that provides information in JSON format."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=temperature,
+        response_format={"type": "json_object"}  # Correct parameter placement
     )
     
-    # Create prompt template
-    prompt_template = """
+    response_content = response.choices[0].message.content.strip()
+    print(f"Raw response: {response_content}")
+    return response_content
+
+def call_llm(enriched_content, url) -> BusinessDetails:
+    # Generate the schema
+    schema = BusinessDetails.model_json_schema()
+    prompt = f"""
     You are an expert business analyst. Analyze the following website content and extract key business information.
-    
     Website Content:
-    ```
-    {content}
-    ```
-    
+    {enriched_content}
     Website URL: {url}
-    
-    Extract the following information in a structured format:
-    1. Company Name: What is the name of the company?
-    2. Industry: What industry does the company belong to? Include a confidence score (0-1) and potential sub-industries.
-    3. Company Size: What is the approximate size of the company (small, medium, large) if indicated? Include a confidence score (0-1).
-    4. Location: Where is the company headquartered or primarily located? Include a confidence score (0-1).
-    5. Description: Provide a brief description of what the company does.
-    6. Products/Services: List the main products or services offered by the company.
-    7. Technologies: List any technologies mentioned on the website.
-    8. Founded Year: When was the company founded (if mentioned)?
-    
-    For each point, if the information is not available, indicate "Not found" and provide a low confidence score.
-    Your response should be in JSON format that matches the following structure:
-    {
-        "company_name": "string",
-        "website_url": "string",
-        "industry": {
-            "industry": "string",
-            "confidence_score": float,
-            "sub_industries": ["string"]
-        },
-        "company_size": {
-            "size_category": "string",
-            "employee_range": "string",
-            "confidence_score": float
-        },
-        "location": {
-            "headquarters": "string",
-            "offices": ["string"],
-            "countries_of_operation": ["string"],
-            "confidence_score": float
-        },
-        "description": "string",
-        "products_services": ["string"],
-        "technologies": ["string"],
-        "founded_year": integer or null
-    }
+    Return the results in JSON format with the following structure:
+    {schema}
     """
-    
-    prompt = PromptTemplate(
+
+    try:
+        response_text = gpt_call(prompt)
+        business_data = BusinessDetails.parse_raw(response_text)
+        return business_data
+    except Exception as e:
+        print(f"Error processing response: {e}")
+        print(f"Response text: {response_text}")
+        # Return a default object to prevent crashes
+        return BusinessDetails()
+
+def call_llmw(enriched_content: str, url: str) -> BusinessDetails:
+    # Initialize the LLM with aisuite
+    llm = aisuite.LLM(model="openai:gpt-4o-mini" )
+    json_schema = BusinessDetails.__get_pydantic_json_schema__
+    logger.info("schema %s", json_schema)
+    prompt_template = PromptTemplate(
+        template="""
+    You are an expert business analyst. Analyze the following website content and extract key business information.
+
+    Website Content:
+    {content}
+
+    Website URL: {url}
+
+    Extract the following information. Return your response **only** in JSON format that matches the structure below:
+
+    {format_instructions}
+    """,
         input_variables=["content", "url"],
-        template=prompt_template
+        partial_variables={"format_instructions": json_schema}
     )
+    # Format the prompt with the provided content and URL
+    prompt = prompt_template.format(content=enriched_content, url=url)
+
+    # Call the LLM to get the response
+    response = llm.chat([{"role": "user", "content": prompt}])
+    logger.info("reso %s",response)
+    # Parse the response into the BusinessDetails model
+    business_details = BusinessDetails.model_json_schema(response['choices'][0]['message']['content'])
+
+    return business_details
+  
+def call_llm2(enriched_content,url)->BusinessDetails:
+
+     # Prepare content for LLM analysis
+ 
+    # Step 2: Create a parser based on the schema
+    # parser = StructuredOutputParser.from_pydantic(BusinessDetails)
+    # Step 1: Define parser
+    parser = PydanticOutputParser(pydantic_object=BusinessDetails)
+    # Step 2: Wrap the parser as a Runnable
+    parser_runnable = RunnableLambda(parser.parse)
+    content = enriched_content
+
+    # Step 3: Create your prompt template with formatting instructions
+    prompt = PromptTemplate(
+        template="""
+    You are an expert business analyst. Analyze the following website content and extract key business information.
+
+    Website Content:
+    {content}
+
+    Website URL: {url}
+
+    Extract the following information. Return your response **only** in JSON format that matches the structure below:
+
+    {format_instructions}
+    """,
+        input_variables=["content", "url"],
+        partial_variables={"format_instructions": parser.get_format_instructions()}
+    )
+
+    # Step 4: Build and invoke the chain
+    llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.2,   model_kwargs={"response_format": {"type": "json"}})
     
-    # Create and run chain
-    chain = LLMChain(llm=llm, prompt=prompt)
-    result = chain.run(content=enriched_content, url=url)
+    chain = prompt | llm | parser_runnable
+
+    # Step 5: Call the chain
+    result = chain.invoke({
+        "content": enriched_content,
+        "url": url
+    })
+
+    # # Now `result` is a parsed BusinessDetails object!
+    # return result
+
     
-    # Parse the result (cleanup JSON and convert to BusinessDetails)
-    import json
-    import re
+    # prompt = PromptTemplate(
+    #     input_variables=["content", "url"],
+    #     template=prompt_template
+    # )
     
-    # Find JSON content (sometimes LLM adds extra text before/after JSON)
-    json_match = re.search(r'({[\s\S]*})', result)
-    if json_match:
-        result = json_match.group(1)
+    # # Create and run chain
+    # # chain = LLMChain(llm=llm, prompt=prompt)
+    # # result = chain.run(content=enriched_content, url=url)
+    # # Initialize your LLM
+    # llm = OpenAI()
+
+    # # Create the chain using LCEL
+    # chain = prompt | llm | StrOutputParser()
+
+    # # Invoke the chain with your inputs
+    # result = chain.invoke({"content": enriched_content, "url": url})
+    # # Parse the result (cleanup JSON and convert to BusinessDetails)
+    # 
+    # import re
+    
+    # # Find JSON content (sometimes LLM adds extra text before/after JSON)
+    # json_match = re.search(r'({[\s\S]*})', result)
+    # if json_match:
+    #     result = json_match.group(1)
     
     # Parse JSON into BusinessDetails model
     business_data = json.loads(result)

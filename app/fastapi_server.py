@@ -226,7 +226,7 @@ class OpenAIAnalyzer():
             json_match = re.search(r'({[\s\S]*})', result)
             if json_match:
                 result = json_match.group(1)
-            
+            logger.info("result ",result)
             # Parse JSON into BusinessDetails model
             business_data = json.loads(result)
             return BusinessDetails(**business_data)

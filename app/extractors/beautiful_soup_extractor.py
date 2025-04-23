@@ -22,10 +22,11 @@ class BeautifulSoupExtractor(WebExtractor):
         """
         try:
             # Set a user agent to avoid being blocked
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-            }
-            response = requests.get(url, headers=headers, timeout=10)
+            # headers = {
+            #     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            # }
+            response = requests.get(url, headers={}, timeout=10, verify=False)
+            logger.info("result % s",response)
             response.raise_for_status()
             
             # Parse HTML with BeautifulSoup

@@ -1,0 +1,6 @@
+Task | Command
+Start without rebuild | docker-compose up
+Rebuild only API | docker-compose build api
+Stop containers | docker-compose down
+View logs | docker-compose logs -f
+Restart one service | docker-compose restart ui

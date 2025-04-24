@@ -6,6 +6,15 @@ from pydantic import HttpUrl, ValidationError
 from urllib.parse import urlparse
 import os
 from dotenv import load_dotenv
+import logging
+
+# Create and configure logger
+logging.basicConfig(filename="ui.log",
+                    format='%(asctime)s %(message)s',
+                    filemode='w')
+
+# Creating an object
+logger = logging.getLogger()
 
 # Load environment variables
 load_dotenv()
@@ -17,6 +26,7 @@ API_KEY = os.getenv("API_KEY")
 if not API_KEY:
     st.error("API_KEY environment variable not set")
     st.stop()
+
 
 # Set page configuration
 st.set_page_config(
@@ -87,12 +97,12 @@ def analyze_website(url):
             "Content-Type": "application/json"
         }
         response = requests.post(
-            f"{API_URL}/analyze",
+            f"{API_URL}/api/analyze",
             headers=headers,
             json={"url": url},
             timeout=60
         )
-        
+        logger.info(" header %s response %s",headers,response )
         if response.status_code == 200:
             return response.json()
         else:

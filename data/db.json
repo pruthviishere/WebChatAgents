@@ -1,0 +1,116 @@
+{
+  "companies": {
+    "https://3ds.com": {
+      "company_name": "Dassault Syst\u00e8mes",
+      "website_url": "https://3ds.com",
+      "industry": {
+        "industry": "Software and Technology",
+        "confidence_score": 0.95,
+        "sub_industries": [
+          "3D Modeling",
+          "Simulation Software",
+          "Virtual Twin Technology",
+          "Manufacturing Solutions",
+          "Life Sciences"
+        ]
+      },
+      "company_size": {
+        "size_category": "large",
+        "employee_range": "10,000+",
+        "confidence_score": 0.9
+      },
+      "location": {
+        "headquarters": "V\u00e9lizy-Villacoublay, France",
+        "offices": [
+          "North America",
+          "Europe",
+          "Asia"
+        ],
+        "countries_of_operation": [
+          "France",
+          "United States",
+          "Germany",
+          "Japan",
+          "China"
+        ],
+        "confidence_score": 0.85
+      },
+      "description": "Dassault Syst\u00e8mes is a global leader in 3D design, 3D digital mock-up, and product lifecycle management (PLM) software. The company provides solutions that help businesses create sustainable innovations through virtual twin technologies.",
+      "products_services": [
+        "3DEXPERIENCE Platform",
+        "Virtual Twin Technology",
+        "Simulation Software",
+        "Manufacturing Execution Systems (MES)",
+        "Augmented Reality Solutions"
+      ],
+      "technologies": [
+        "3D Modeling",
+        "Simulation",
+        "Virtual Twins",
+        "Cloud Computing",
+        "Augmented Reality"
+      ],
+      "founded_year": 1981
+    },
+    "https://www.google.com": {
+      "company_name": "Google",
+      "website_url": "https://www.google.com",
+      "industry": {
+        "industry": "Technology",
+        "confidence_score": 0.95,
+        "sub_industries": [
+          "Internet Services",
+          "Software",
+          "Advertising"
+        ]
+      },
+      "company_size": {
+        "size_category": "large",
+        "employee_range": "10000+",
+        "confidence_score": 0.98
+      },
+      "location": {
+        "headquarters": "Mountain View, California, USA",
+        "offices": [
+          "Dublin, Ireland",
+          "London, UK",
+          "Sydney, Australia"
+        ],
+        "countries_of_operation": [
+          "USA",
+          "India",
+          "UK",
+          "Australia",
+          "Canada"
+        ],
+        "confidence_score": 0.95
+      },
+      "description": "Google is a multinational technology company specializing in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.",
+      "products_services": [
+        "Search Engine",
+        "Google Ads",
+        "Google Cloud",
+        "YouTube",
+        "Gmail",
+        "Google Drive",
+        "Google Maps"
+      ],
+      "technologies": [
+        "Search Algorithms",
+        "Cloud Computing",
+        "Machine Learning",
+        "Artificial Intelligence"
+      ],
+      "founded_year": 1998
+    }
+  },
+  "questions": {
+    "https://3ds.com": {
+      "What industry is this company in?": {
+        "answer": "Software and Technology",
+        "confidence": 0.95,
+        "source": "industry_data"
+      }
+    }
+  }
+}

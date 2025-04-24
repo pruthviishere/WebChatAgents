@@ -1,7 +1,7 @@
 # app/core/analyzer.py
 import re
 import os
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import json
 from app.extractors.factory import ExtractorFactory, ExtractorType
 from app.models.business import BusinessDetails
@@ -10,9 +10,23 @@ from app.utils.logging import logger
 from fastapi import APIRouter, HTTPException, Depends
 from openai import OpenAI
 from pydantic import BaseModel, Field
+from app.db.json_db import JsonDatabase
+from app.services.ai_service import AIService
+from app.services.db_service import DatabaseService
+from app.services.extractor_service import ExtractorService
+from app.models.question import QuestionResponse
 
 class WebsiteRequest(BaseModel):
     url: str = Field(..., description="Website URL to analyze", example="https://3ds.com")
+
+class QuestionRequest(BaseModel):
+    url: str = Field(..., description="Website URL to analyze", example="https://3ds.com")
+    question: str = Field(..., description="Question about the company", example="What industry is this company in?")
+
+class QuestionResponse(BaseModel):
+    answer: str
+    confidence: float
+    source: str
 
 # Create the router
 router = APIRouter(
@@ -20,7 +34,40 @@ router = APIRouter(
     tags=["analyzer"]
 )
 
-# Add the endpoint
+# Initialize services
+db_service = DatabaseService()
+
+def extract_answer_from_business_details(question: str, business_details: BusinessDetails) -> Optional[QuestionResponse]:
+    """Extract answer from business details based on question"""
+    question = question.lower()
+    
+    # Industry related questions
+    if any(keyword in question for keyword in ["industry", "sector", "business type"]):
+        return QuestionResponse(
+            answer=business_details.industry.industry,
+            confidence=business_details.industry.confidence_score,
+            source="industry_data"
+        )
+    
+    # Company size related questions
+    if any(keyword in question for keyword in ["size", "employees", "how big", "how many people"]):
+        return QuestionResponse(
+            answer=business_details.company_size.size_category,
+            confidence=business_details.company_size.confidence_score,
+            source="company_size_data"
+        )
+    
+    # Location related questions
+    if any(keyword in question for keyword in ["location", "headquarters", "where", "based"]):
+        return QuestionResponse(
+            answer=business_details.location.headquarters,
+            confidence=business_details.location.confidence_score,
+            source="location_data"
+        )
+    
+    return None
+
+# Original analyzer endpoint
 @router.post("/", response_model=BusinessDetails)
 async def analyze_website_endpoint(
     request: WebsiteRequest,
@@ -30,17 +77,19 @@ async def analyze_website_endpoint(
     Analyze a website homepage to extract business details.
     """
     try:
-        # Select best extractor
-        extractor_type = await select_best_extractor(str(request.url))
+        # Check if we have cached data
+        cached_data = await db_service.get_company_data(request.url)
+        if cached_data:
+            return cached_data
         
-        # Create extractor instance
-        extractor = ExtractorFactory.create_extractor(extractor_type)
-        
-        # Extract content
-        extracted_data = await extractor.extract(str(request.url))
+        # Extract website content
+        extracted_data = await ExtractorService.extract_website_content(request.url)
         
         # Analyze content
-        business_details = await analyze_website(extracted_data, str(request.url))
+        business_details = await AIService.analyze_website(extracted_data, request.url)
+        
+        # Save the scraped data
+        await db_service.save_company_data(request.url, business_details)
         
         return business_details
         
@@ -50,7 +99,52 @@ async def analyze_website_endpoint(
             status_code=500,
             detail=f"Error analyzing website: {str(e)}"
         )
-    
+
+# Question endpoint
+@router.post("/question", response_model=QuestionResponse)
+async def answer_question(
+    request: QuestionRequest,
+    api_key_valid: bool = Depends(verify_api_key)
+):
+    """
+    Answer a specific question about a company.
+    """
+    try:
+        # Check if we have a cached answer
+        cached_answer = await db_service.get_question_answer(request.url, request.question)
+        if cached_answer:
+            return cached_answer
+        
+        # Get company data (from cache or by scraping)
+        company_data = await db_service.get_company_data(request.url)
+        if not company_data:
+            # If no cached data, analyze the website
+            extracted_data = await ExtractorService.extract_website_content(request.url)
+            company_data = await AIService.analyze_website(extracted_data, request.url)
+            await db_service.save_company_data(request.url, company_data)
+        
+        # Try to answer the question
+        answer = AIService.extract_answer_from_business_details(request.question, company_data)
+        if not answer:
+            raise HTTPException(
+                status_code=404,
+                detail="Could not find an answer to this question in the available data"
+            )
+        
+        # Cache the answer
+        await db_service.save_question_answer(request.url, request.question, answer)
+        
+        return answer
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error answering question: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error answering question: {str(e)}"
+        )
+
 async def select_best_extractor(url: str) -> ExtractorType:
     """Select the best extractor for a given URL.
     

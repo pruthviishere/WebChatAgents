@@ -2,11 +2,11 @@
 import requests
 from bs4 import BeautifulSoup
 from typing import Dict, Any, Optional
-import logging
+from app.utils.logging import logger
 
 from app.extractors.base import WebExtractor
 
-logger = logging.getLogger(__name__)
+ 
 
 class BeautifulSoupExtractor(WebExtractor):
     """Website content extractor using BeautifulSoup."""

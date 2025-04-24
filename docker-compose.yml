@@ -30,7 +30,7 @@ services:
     ports:
       - "8501:8501"
     volumes:
-      - ./app:/app
+      - ./frontend:/app
       - ui_logs:/ui/logs
     env_file:
       - .env

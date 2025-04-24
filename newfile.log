@@ -2,3 +2,7 @@
 2025-04-24 10:23:30,499 Waiting for application startup.
 2025-04-24 10:23:30,499 Starting   vhi
 2025-04-24 10:23:30,499 Application startup complete.
+2025-04-24 10:44:58,204 Shutting down
+2025-04-24 10:44:58,357 Waiting for application shutdown.
+2025-04-24 10:44:58,368 Application shutdown complete.
+2025-04-24 10:44:58,371 Finished server process [77018]

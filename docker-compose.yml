@@ -9,12 +9,13 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/app
+      - ./app:/app/app:ro
       - api_logs:/app/logs
     env_file:
       - .env
     environment:
       - ENVIRONMENT=development
+      - PYTHONPATH=/app
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
@@ -36,7 +37,7 @@ services:
       - .env
     environment:
       - API_URL=http://api:8000
-    command: streamlit run app/streamlit_app.py --server.port=8501 --server.address=0.0.0.0
+    command: streamlit run streamlit_app.py --server.port=8501 --server.address=0.0.0.0
     depends_on:
       - api
 

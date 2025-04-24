@@ -8,4 +8,5 @@ beautifulsoup4
 langchain 
 langchain-openai
 streamlit 
+playwright
  

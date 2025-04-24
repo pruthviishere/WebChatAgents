@@ -17,8 +17,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Create logs directory
 RUN mkdir -p /app/logs && chmod 777 /app/logs
 
-# Copy the rest of the application
-COPY . .
+# Copy the application code
+COPY app/ /app/app/
+COPY requirements.txt /app/
+
+# Add the current directory to Python path
+ENV PYTHONPATH=/app
 
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

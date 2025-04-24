@@ -47,6 +47,7 @@ async def analyze_website_endpoint(
     try:
         # Select best extractor
         extractor_type = await select_best_extractor(str(request.url))
+        extractor_type = await select_best_extractor(str(request.url))
         
         # Create extractor instance
         extractor = ExtractorFactory.create_extractor(extractor_type)

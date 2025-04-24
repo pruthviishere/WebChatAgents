@@ -1,29 +1,54 @@
-version: '3'
+# docker-compose.yml
+version: '3.8'
 
 services:
   api:
-    build: .
-    command: ["api"]
+    build:
+      context: .
+      dockerfile: api.Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - ./app:/app
+      - api_logs:/app/logs
+    env_file:
+      - .env
     environment:
-      - API_KEY=${API_KEY}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-    restart: always
+      - ENVIRONMENT=development
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
 
-  streamlit:
-    build: .
-    command: ["streamlit"]
+  ui:
+    build:
+      context: .
+      dockerfile: ui.Dockerfile
     ports:
       - "8501:8501"
+    volumes:
+      - ./app:/app
+      - ui_logs:/ui/logs
+    env_file:
+      - .env
     environment:
       - API_URL=http://api:8000
-      - API_KEY=${API_KEY}
+    command: streamlit run app/streamlit_app.py --server.port=8501 --server.address=0.0.0.0
     depends_on:
       - api
-    restart: always
+
+  # Optional development services
+  # playwright-browser:
+  #   image: mcr.microsoft.com/playwright:v1.39.0-focal
+  #   restart: on-failure
+  #   volumes:
+  #     - ./app:/app
+  #   command: sleep infinity
+    # Only used during development for the Playwright extractor
+
+volumes:
+  api_logs:
+  ui_logs:

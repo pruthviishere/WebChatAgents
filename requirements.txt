@@ -9,4 +9,4 @@ langchain
 langchain-openai
 streamlit 
 playwright
- 
+fastapi[standard]

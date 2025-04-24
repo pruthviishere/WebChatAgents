@@ -2,6 +2,7 @@ from typing import Dict, Any, Optional
 from app.models.business import BusinessDetails
 from app.models.question import QuestionResponse
 from app.utils.logging import logger
+import json
 
 class AIService:
     """Service for AI-related operations"""
@@ -104,4 +105,61 @@ class AIService:
             response_format={"type": "json_object"}
         )
         
-        return response.choices[0].message.content.strip() 
+        return response.choices[0].message.content.strip()
+
+    @staticmethod
+    async def analyze_with_llm(
+        question: str,
+        context: Dict[str, Any],
+        company_context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Analyze web search results with LLM to answer questions"""
+        try:
+            # Prepare context for LLM
+            search_results = context.get("results", [])
+            search_context = "\n\n".join([
+                f"Title: {result['title']}\nSnippet: {result['snippet']}\nLink: {result['link']}"
+                for result in search_results
+            ])
+            
+            # Prepare company context if available
+            company_info = ""
+            if company_context:
+                company_info = f"""
+                Company Information:
+                - Industry: {company_context.get('industry', {}).get('industry', 'Unknown')}
+                - Size: {company_context.get('company_size', {}).get('size_category', 'Unknown')}
+                - Location: {company_context.get('location', {}).get('headquarters', 'Unknown')}
+                """
+            
+            # Create prompt for LLM
+            prompt = f"""
+            You are an expert business analyst. Analyze the following information and answer the question.
+            
+            Question: {question}
+            
+            {company_info}
+            
+            Web Search Results:
+            {search_context}
+            
+            Please provide a detailed answer based on the available information.
+            Return your response in JSON format with the following structure:
+            {{
+                "answer": "Your detailed answer here",
+                "confidence": 0.0 to 1.0,
+                "sources": ["List of sources used"]
+            }}
+            """
+            
+            # Call LLM
+            response_text = await AIService.gpt_call(prompt, temperature=0.3)
+            return json.loads(response_text)
+            
+        except Exception as e:
+            logger.error(f"Error analyzing with LLM: {str(e)}")
+            return {
+                "answer": "I couldn't find a reliable answer to your question.",
+                "confidence": 0.0,
+                "sources": []
+            } 

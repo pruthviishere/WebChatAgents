@@ -1,0 +1,64 @@
+2025-04-25 01:24:12,194 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:25:56,559 - webchat_agents - INFO - Processing question for URL: https://3ds.com, Question: Which database comany this accuired ?
+2025-04-25 01:25:56,567 - webchat_agents - INFO - No answer found in scraped data, proceeding with web search for question: Which database comany this accuired ?
+2025-04-25 01:25:56,567 - webchat_agents - INFO - Starting web search for query: Which database comany this accuired ?
+2025-04-25 01:25:56,567 - webchat_agents - INFO - Using DuckDuckGo as search provider
+2025-04-25 01:25:56,567 - webchat_agents - INFO - Using DuckDuckGo search service
+2025-04-25 01:25:56,567 - webchat_agents - INFO - Starting DuckDuckGo search for query: Which database comany this accuired ?
+2025-04-25 01:25:56,569 - webchat_agents - ERROR - Error performing DuckDuckGo search: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-04-25 01:25:56,569 - webchat_agents - WARNING - No search results found
+2025-04-25 01:25:56,569 - webchat_agents - WARNING - No web search results found for question: Which database comany this accuired ?
+2025-04-25 01:25:56,570 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 01:25:56", "endpoint": "/analyze/question", "request": {"url": "https://3ds.com", "question": "Which database comany this accuired ?"}, "duration_seconds": 0.01, "status": "error", "response": {"error": "Not found"}}
+2025-04-25 01:26:50,546 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:26:57,136 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:27:06,758 - webchat_agents - INFO - Processing question for URL: https://3ds.com, Question: Which database comany this accuired ?
+2025-04-25 01:27:06,765 - webchat_agents - INFO - No answer found in scraped data, proceeding with web search for question: Which database comany this accuired ?
+2025-04-25 01:27:06,766 - webchat_agents - INFO - Starting web search for query: Which database comany this accuired ?
+2025-04-25 01:27:06,766 - webchat_agents - INFO - Using DuckDuckGo as search provider
+2025-04-25 01:27:06,766 - webchat_agents - INFO - Using DuckDuckGo search service
+2025-04-25 01:27:06,767 - webchat_agents - INFO - Starting DuckDuckGo search for query: Which database comany this accuired ?
+2025-04-25 01:27:06,767 - webchat_agents - ERROR - Error performing DuckDuckGo search: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-04-25 01:27:06,767 - webchat_agents - WARNING - No search results found
+2025-04-25 01:27:06,768 - webchat_agents - WARNING - No web search results found for question: Which database comany this accuired ?
+2025-04-25 01:27:06,770 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 01:27:06", "endpoint": "/analyze/question", "request": {"url": "https://3ds.com", "question": "Which database comany this accuired ?"}, "duration_seconds": 0.01, "status": "error", "response": {"error": "Not found"}}
+2025-04-25 01:27:54,318 - webchat_agents - INFO - Processing question for URL: https://3ds.com, Question: best product of dassault system ?
+2025-04-25 01:27:54,322 - webchat_agents - INFO - No answer found in scraped data, proceeding with web search for question: best product of dassault system ?
+2025-04-25 01:27:54,322 - webchat_agents - INFO - Starting web search for query: best product of dassault system ?
+2025-04-25 01:27:54,322 - webchat_agents - INFO - Using DuckDuckGo as search provider
+2025-04-25 01:27:54,322 - webchat_agents - INFO - Using DuckDuckGo search service
+2025-04-25 01:27:54,323 - webchat_agents - INFO - Starting DuckDuckGo search for query: best product of dassault system ?
+2025-04-25 01:27:54,323 - webchat_agents - ERROR - Error performing DuckDuckGo search: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-04-25 01:27:54,323 - webchat_agents - WARNING - No search results found
+2025-04-25 01:27:54,323 - webchat_agents - WARNING - No web search results found for question: best product of dassault system ?
+2025-04-25 01:27:54,325 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 01:27:54", "endpoint": "/analyze/question", "request": {"url": "https://3ds.com", "question": "best product of dassault system ?"}, "duration_seconds": 0.01, "status": "error", "response": {"error": "Not found"}}
+2025-04-25 01:28:44,719 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:29:03,937 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:29:53,140 - webchat_agents - INFO - Processing question for URL: https://3ds.com, Question: best product of dassault system ?
+2025-04-25 01:29:53,144 - webchat_agents - INFO - No answer found in scraped data, proceeding with web search for question: best product of dassault system ?
+2025-04-25 01:29:53,144 - webchat_agents - INFO - Starting web search for query: best product of dassault system ?
+2025-04-25 01:29:53,144 - webchat_agents - INFO - Using DuckDuckGo as search provider
+2025-04-25 01:29:53,144 - webchat_agents - INFO - Using DuckDuckGo search service
+2025-04-25 01:29:53,144 - webchat_agents - INFO - Starting DuckDuckGo search for query: dassault system best product of dassault system 
+2025-04-25 01:29:53,145 - webchat_agents - ERROR - Error performing DuckDuckGo search: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-04-25 01:29:53,145 - webchat_agents - WARNING - No search results found
+2025-04-25 01:29:53,145 - webchat_agents - WARNING - No web search results found for question: best product of dassault system ?
+2025-04-25 01:29:53,147 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 01:29:53", "endpoint": "/analyze/question", "request": {"url": "https://3ds.com", "question": "best product of dassault system ?"}, "duration_seconds": 0.01, "status": "error", "response": {"error": "Not found"}}
+2025-04-25 01:31:12,099 - webchat_agents - INFO - Processing question for URL: https://3ds.com, Question: latest aquired company by dassault system?
+2025-04-25 01:31:12,144 - webchat_agents - INFO - No answer found in scraped data, proceeding with web search for question: latest aquired company by dassault system?
+2025-04-25 01:31:12,147 - webchat_agents - INFO - Starting web search for query: latest aquired company by dassault system?
+2025-04-25 01:31:12,149 - webchat_agents - INFO - Using DuckDuckGo as search provider
+2025-04-25 01:31:12,150 - webchat_agents - INFO - Using DuckDuckGo search service
+2025-04-25 01:31:12,157 - webchat_agents - INFO - Starting DuckDuckGo search for query: latest aquired company by dassault system
+2025-04-25 01:31:12,174 - webchat_agents - ERROR - Error performing DuckDuckGo search: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-04-25 01:31:12,175 - webchat_agents - WARNING - No search results found
+2025-04-25 01:31:12,175 - webchat_agents - WARNING - No web search results found for question: latest aquired company by dassault system?
+2025-04-25 01:31:12,199 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 01:31:12", "endpoint": "/analyze/question", "request": {"url": "https://3ds.com", "question": "latest aquired company by dassault system?"}, "duration_seconds": 0.1, "status": "error", "response": {"error": "Not found"}}
+2025-04-25 01:32:12,911 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:32:33,945 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:33:02,637 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:34:02,474 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:34:16,168 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:35:27,053 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:35:48,447 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:36:42,465 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:36:54,387 - webchat_agents - INFO - Starting WebChatAgents

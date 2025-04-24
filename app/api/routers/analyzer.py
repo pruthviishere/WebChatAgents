@@ -5,37 +5,32 @@ from typing import Dict, Any
 import json
 from app.extractors.factory import ExtractorFactory, ExtractorType
 from app.models.business import BusinessDetails
- 
+from app.core.security import verify_api_key
 from app.utils.logging import logger
 from fastapi import APIRouter, HTTPException, Depends
- 
 from openai import OpenAI
- 
-
 from pydantic import BaseModel, Field
- 
-
 
 class WebsiteRequest(BaseModel):
-    url: str = Field(..., description="Website URL to analyze", example="https://example.com")
+    url: str = Field(..., description="Website URL to analyze", example="https://3ds.com")
 
 # Create the router
 router = APIRouter(
     prefix="/analyze",
     tags=["analyzer"]
 )
+
 # Add the endpoint
 @router.post("/", response_model=BusinessDetails)
 async def analyze_website_endpoint(
     request: WebsiteRequest,
-    # api_key_valid: bool = Depends(verify_api_key)
+    api_key_valid: bool = Depends(verify_api_key)
 ):
     """
     Analyze a website homepage to extract business details.
     """
     try:
         # Select best extractor
-        extractor_type = await select_best_extractor(str(request.url))
         extractor_type = await select_best_extractor(str(request.url))
         
         # Create extractor instance

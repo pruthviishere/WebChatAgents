@@ -1,0 +1,1 @@
+'\n    You are an expert business analyst. Analyze the following website content and extract key business information.\n\n    Website Content:\n    {content}\n\n    Website URL: {url}\n\n    Extract the following information. Return your response **only** in JSON format that matches the structure below:\n\n    {format_instructions}\n    '

@@ -30,6 +30,14 @@ class QuestionResponse(BaseModel):
     confidence: float
     source: str
 
+class DirectQuestionRequest(BaseModel):
+    question: str = Field(..., description="Question to ask the AI", example="What is the capital of France?")
+    temperature: float = Field(0.0, description="Temperature for GPT response", ge=0.0, le=1.0)
+
+class DirectQuestionResponse(BaseModel):
+    answer: str
+    confidence: float = Field(..., description="Confidence score of the answer", ge=0.0, le=1.0)
+
 # Create the router
 router = APIRouter(
     prefix="/analyze",
@@ -202,6 +210,52 @@ async def answer_question(
         raise HTTPException(
             status_code=500,
             detail=f"Error answering question: {str(e)}"
+        )
+
+@router.post("/direct-question", response_model=DirectQuestionResponse)
+async def direct_question(
+    request: DirectQuestionRequest,
+    api_key_valid: bool = Depends(verify_api_key)
+):
+    """
+    Ask a direct question to the GPT model without any context.
+    """
+    start_time = time.time()
+    try:
+        logger.info(f"Processing direct question: {request.question}")
+        
+        # Create a prompt for the GPT model
+        prompt = f"""
+        You are a helpful AI assistant. Please answer the following question accurately and concisely.
+        
+        Question: {request.question}
+        
+        Return your response in JSON format with the following structure:
+        {{
+            "answer": "Your detailed answer here",
+            "confidence": 0.0 to 1.0
+        }}
+        """
+        
+        # Call GPT with the prompt
+        response_text = await AIService.gpt_call(prompt, temperature=request.temperature)
+        response_data = json.loads(response_text)
+        
+        # Create response object
+        answer = DirectQuestionResponse(
+            answer=response_data.get("answer", "I couldn't generate an answer."),
+            confidence=response_data.get("confidence", 0.0)
+        )
+        
+        log_api_call("/analyze/direct-question", request.dict(), start_time, "success", answer.dict())
+        return answer
+        
+    except Exception as e:
+        logger.error(f"Error processing direct question: {str(e)}")
+        log_api_call("/analyze/direct-question", request.dict(), start_time, "error", {"error": str(e)})
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error processing question: {str(e)}"
         )
 
 async def select_best_extractor(url: str) -> ExtractorType:

@@ -233,13 +233,95 @@ def analyze_website(url, api_key):
         logger.error("Unexpected error: %s", str(e))
         return None
 
+def ask_question(question, api_key, url=None):
+    """Send a question to the API for processing."""
+    try:
+        headers = {
+            "Authorization": api_key,
+            "Content-Type": "application/json"
+        }
+        
+        # If no URL is provided, use the last analyzed website URL from session state
+        if not url and 'results' in st.session_state:
+            url = st.session_state.results.get('website_url')
+        
+        if not url:
+            st.error("Please analyze a website first or provide a URL to ask questions about.")
+            return None
+            
+        response = requests.post(
+            f"{API_URL}/api/analyze/question",
+            headers=headers,
+            json={
+                "url": url,
+                "question": question
+            },
+            timeout=60
+        )
+        logger.info("Question request headers: %s", headers)
+        logger.info("Question response status: %s", response.status_code)
+        
+        if response.status_code == 200:
+            return response.json()
+        elif response.status_code == 401:
+            st.error("Unauthorized: Invalid API key. Please check your API key and try again.")
+            return None
+        else:
+            st.error(f"Error: {response.status_code} - {response.text}")
+            return None
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error connecting to API: {str(e)}")
+        logger.error("Question API request failed: %s", str(e))
+        return None
+    except Exception as e:
+        st.error(f"Unexpected error: {str(e)}")
+        logger.error("Unexpected error in question processing: %s", str(e))
+        return None
+
+def ask_direct_question(question, api_key, temperature=0.0):
+    """Send a direct question to the GPT model."""
+    try:
+        headers = {
+            "Authorization": api_key,
+            "Content-Type": "application/json"
+        }
+        
+        response = requests.post(
+            f"{API_URL}/api/analyze/direct-question",
+            headers=headers,
+            json={
+                "question": question,
+                "temperature": temperature
+            },
+            timeout=60
+        )
+        logger.info("Direct question request headers: %s", headers)
+        logger.info("Direct question response status: %s", response.status_code)
+        
+        if response.status_code == 200:
+            return response.json()
+        elif response.status_code == 401:
+            st.error("Unauthorized: Invalid API key. Please check your API key and try again.")
+            return None
+        else:
+            st.error(f"Error: {response.status_code} - {response.text}")
+            return None
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error connecting to API: {str(e)}")
+        logger.error("Direct question API request failed: %s", str(e))
+        return None
+    except Exception as e:
+        st.error(f"Unexpected error: {str(e)}")
+        logger.error("Unexpected error in direct question processing: %s", str(e))
+        return None
+
 # Main application
 def main():
     st.title("🔍 Website Business Analyzer")
     
     st.markdown("""
-    This application analyzes company websites to extract key business information.
-    Please enter your API key and the website URL below to get started.
+    This application analyzes company websites, answers questions about companies, and provides direct AI assistance.
+    Please enter your API key to get started.
     """)
     
     # API Key input
@@ -249,107 +331,202 @@ def main():
         st.warning("Please enter your API key to continue")
         st.stop()
     
-    # URL input
-    url = st.text_input("Enter website URL", "https://www.3ds.com")
+    # Create tabs for different functionalities
+    tab1, tab2, tab3 = st.tabs(["Website Analysis", "Company Questions", "Direct AI Questions"])
     
-    with st.expander("Advanced Options", expanded=False):
-        st.markdown("These options are for future expansion")
-        st.checkbox("Include social media analysis", value=False, disabled=True)
-        st.checkbox("Deep crawl (follow links)", value=False, disabled=True)
-    
-    # Submit button
-    col1, col2, col3 = st.columns([1,1,3])
-    with col1:
-        submitted = st.button("Analyze Website", type="primary", use_container_width=True)
-    with col2:
-        clear = st.button("Clear Results", type="secondary", use_container_width=True)
-    
-    if clear:
-        st.session_state.clear()
-    
-    if submitted and url:
-        if not is_valid_url(url):
-            st.error("Please enter a valid URL including http:// or https://")
-        else:
-            with st.spinner("Analyzing website... This may take a moment."):
-                results = analyze_website(url, api_key)
-                if results:
-                    st.session_state.results = results
-    
-    # Display results
-    if 'results' in st.session_state:
-        results = st.session_state.results
+    with tab1:
+        # URL input
+        url = st.text_input("Enter website URL", "https://www.3ds.com")
         
-        # Company header section
-        st.markdown(f"## {results['company_name']}")
-        st.markdown(f"**Website**: [{results['website_url']}]({results['website_url']})")
-        st.markdown(f"**Description**: {results['description']}")
+        with st.expander("Advanced Options", expanded=False):
+            st.markdown("These options are for future expansion")
+            st.checkbox("Include social media analysis", value=False, disabled=True)
+            st.checkbox("Deep crawl (follow links)", value=False, disabled=True)
         
-        # Main data cards
-        col1, col2 = st.columns(2)
-        
+        # Submit button
+        col1, col2, col3 = st.columns([1,1,3])
         with col1:
-            with st.container():
-                st.markdown("<div class='result-card'>", unsafe_allow_html=True)
-                st.subheader("🏭 Industry Information")
-                st.markdown(f"**Primary Industry**: {results['industry']['industry']}")
-                st.markdown(f"**Confidence**: {format_confidence(results['industry']['confidence_score'])}", unsafe_allow_html=True)
-                
-                if results['industry']['sub_industries']:
-                    st.markdown("**Sub-Industries**:")
-                    for sub in results['industry']['sub_industries']:
-                        st.markdown(f"- {sub}")
-                st.markdown("</div>", unsafe_allow_html=True)
-            
-            with st.container():
-                st.markdown("<div class='result-card'>", unsafe_allow_html=True)
-                st.subheader("📍 Location")
-                if results['location']['headquarters']:
-                    st.markdown(f"**Headquarters**: {results['location']['headquarters']}")
-                
-                if results['location']['offices'] and len(results['location']['offices']) > 0 and results['location']['offices'][0] != "Not found":
-                    st.markdown("**Offices**:")
-                    for office in results['location']['offices']:
-                        st.markdown(f"- {office}")
-                
-                if results['location']['countries_of_operation'] and len(results['location']['countries_of_operation']) > 0 and results['location']['countries_of_operation'][0] != "Not found":
-                    st.markdown("**Countries of Operation**:")
-                    for country in results['location']['countries_of_operation']:
-                        st.markdown(f"- {country}")
-                
-                st.markdown(f"**Confidence**: {format_confidence(results['location']['confidence_score'])}", unsafe_allow_html=True)
-                st.markdown("</div>", unsafe_allow_html=True)
-        
+            submitted = st.button("Analyze Website", type="primary", use_container_width=True)
         with col2:
-            with st.container():
-                st.markdown("<div class='result-card'>", unsafe_allow_html=True)
-                st.subheader("👥 Company Size")
-                st.markdown(f"**Size Category**: {results['company_size']['size_category']}")
-                if results['company_size']['employee_range'] and results['company_size']['employee_range'] != "Not found":
-                    st.markdown(f"**Employee Range**: {results['company_size']['employee_range']}")
-                st.markdown(f"**Confidence**: {format_confidence(results['company_size']['confidence_score'])}", unsafe_allow_html=True)
-                st.markdown("</div>", unsafe_allow_html=True)
-            
-            with st.container():
-                st.markdown("<div class='result-card'>", unsafe_allow_html=True)
-                st.subheader("💼 Business Information")
-                
-                if results['founded_year']:
-                    st.markdown(f"**Founded**: {results['founded_year']}")
-                
-                st.markdown("**Products/Services**:")
-                for product in results['products_services']:
-                    st.markdown(f"- {product}")
-                
-                if results['technologies'] and len(results['technologies']) > 0 and results['technologies'][0] != "Not found":
-                    st.markdown("**Technologies**:")
-                    for tech in results['technologies']:
-                        st.markdown(f"- {tech}")
-                st.markdown("</div>", unsafe_allow_html=True)
+            clear = st.button("Clear Results", type="secondary", use_container_width=True)
         
-        # Raw JSON data
-        with st.expander("Raw JSON Data", expanded=False):
-            st.json(results)
+        if clear:
+            st.session_state.clear()
+        
+        if submitted and url:
+            if not is_valid_url(url):
+                st.error("Please enter a valid URL including http:// or https://")
+            else:
+                with st.spinner("Analyzing website... This may take a moment."):
+                    results = analyze_website(url, api_key)
+                    if results:
+                        st.session_state.results = results
+        
+        # Display results
+        if 'results' in st.session_state:
+            results = st.session_state.results
+            
+            # Company header section
+            st.markdown(f"## {results['company_name']}")
+            st.markdown(f"**Website**: [{results['website_url']}]({results['website_url']})")
+            st.markdown(f"**Description**: {results['description']}")
+            
+            # Main data cards
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                with st.container():
+                    st.markdown("<div class='result-card'>", unsafe_allow_html=True)
+                    st.subheader("🏭 Industry Information")
+                    st.markdown(f"**Primary Industry**: {results['industry']['industry']}")
+                    st.markdown(f"**Confidence**: {format_confidence(results['industry']['confidence_score'])}", unsafe_allow_html=True)
+                    
+                    if results['industry']['sub_industries']:
+                        st.markdown("**Sub-Industries**:")
+                        for sub in results['industry']['sub_industries']:
+                            st.markdown(f"- {sub}")
+                    st.markdown("</div>", unsafe_allow_html=True)
+                
+                with st.container():
+                    st.markdown("<div class='result-card'>", unsafe_allow_html=True)
+                    st.subheader("📍 Location")
+                    if results['location']['headquarters']:
+                        st.markdown(f"**Headquarters**: {results['location']['headquarters']}")
+                    
+                    if results['location']['offices'] and len(results['location']['offices']) > 0 and results['location']['offices'][0] != "Not found":
+                        st.markdown("**Offices**:")
+                        for office in results['location']['offices']:
+                            st.markdown(f"- {office}")
+                    
+                    if results['location']['countries_of_operation'] and len(results['location']['countries_of_operation']) > 0 and results['location']['countries_of_operation'][0] != "Not found":
+                        st.markdown("**Countries of Operation**:")
+                        for country in results['location']['countries_of_operation']:
+                            st.markdown(f"- {country}")
+                    
+                    st.markdown(f"**Confidence**: {format_confidence(results['location']['confidence_score'])}", unsafe_allow_html=True)
+                    st.markdown("</div>", unsafe_allow_html=True)
+            
+            with col2:
+                with st.container():
+                    st.markdown("<div class='result-card'>", unsafe_allow_html=True)
+                    st.subheader("👥 Company Size")
+                    st.markdown(f"**Size Category**: {results['company_size']['size_category']}")
+                    if results['company_size']['employee_range'] and results['company_size']['employee_range'] != "Not found":
+                        st.markdown(f"**Employee Range**: {results['company_size']['employee_range']}")
+                    st.markdown(f"**Confidence**: {format_confidence(results['company_size']['confidence_score'])}", unsafe_allow_html=True)
+                    st.markdown("</div>", unsafe_allow_html=True)
+                
+                with st.container():
+                    st.markdown("<div class='result-card'>", unsafe_allow_html=True)
+                    st.subheader("💼 Business Information")
+                    
+                    if results['founded_year']:
+                        st.markdown(f"**Founded**: {results['founded_year']}")
+                    
+                    st.markdown("**Products/Services**:")
+                    for product in results['products_services']:
+                        st.markdown(f"- {product}")
+                    
+                    if results['technologies'] and len(results['technologies']) > 0 and results['technologies'][0] != "Not found":
+                        st.markdown("**Technologies**:")
+                        for tech in results['technologies']:
+                            st.markdown(f"- {tech}")
+                    st.markdown("</div>", unsafe_allow_html=True)
+            
+            # Raw JSON data
+            with st.expander("Raw JSON Data", expanded=False):
+                st.json(results)
+    
+    with tab2:
+        st.markdown("""
+        Ask questions about companies and get detailed answers based on our analysis.
+        You can ask about company details, industry information, or any other business-related questions.
+        """)
+        
+        # Question input
+        question = st.text_area("Enter your question", 
+                              placeholder="Example: What is the main industry of given company ?",
+                              height=100)
+        
+        # URL input for questions (optional if we have a previously analyzed website)
+        if 'results' in st.session_state:
+            st.info(f"Questions will be about: {st.session_state.results.get('website_url')}")
+        else:
+            url = st.text_input("Enter website URL to ask questions about", 
+                              value="https://www.google.com",
+                              key="question_url")
+        
+        # Submit button for questions
+        col1, col2 = st.columns([1,4])
+        with col1:
+            ask_submitted = st.button("Ask Question", type="primary", use_container_width=True)
+        
+        if ask_submitted and question:
+            with st.spinner("Processing your question... This may take a moment."):
+                # Get URL from session state or input
+                url_to_use = None
+                if 'results' in st.session_state:
+                    url_to_use = st.session_state.results.get('website_url')
+                elif 'url' in locals():
+                    url_to_use = url
+                
+                answer = ask_question(question, api_key, url_to_use)
+                if answer:
+                    st.session_state.question_answer = answer
+        
+        # Display question results
+        if 'question_answer' in st.session_state:
+            answer = st.session_state.question_answer
+            st.markdown("<div class='result-card'>", unsafe_allow_html=True)
+            st.markdown(f"**Question**: {answer.get('question', '')}")
+            st.markdown(f"**Answer**: {answer.get('answer', '')}")
+            if 'confidence_score' in answer:
+                st.markdown(f"**Confidence**: {format_confidence(answer['confidence_score'])}", unsafe_allow_html=True)
+            if 'sources' in answer and answer['sources']:
+                st.markdown("**Sources**:")
+                for source in answer['sources']:
+                    st.markdown(f"- {source}")
+            st.markdown("</div>", unsafe_allow_html=True)
+    
+    with tab3:
+        st.markdown("""
+        Ask any question directly to our AI assistant. This feature uses GPT to provide answers without any specific company context.
+        """)
+        
+        # Question input
+        question = st.text_area("Enter your question", 
+                              placeholder="Example: What is the capital of France?",
+                              height=100)
+        
+        # Temperature slider for controlling response creativity
+        temperature = st.slider(
+            "Response Creativity (Temperature)",
+            min_value=0.0,
+            max_value=1.0,
+            value=0.0,
+            step=0.1,
+            help="Higher values make responses more creative but potentially less accurate"
+        )
+        
+        # Submit button for direct questions
+        col1, col2 = st.columns([1,4])
+        with col1:
+            ask_submitted = st.button("Ask AI", type="primary", use_container_width=True)
+        
+        if ask_submitted and question:
+            with st.spinner("Processing your question... This may take a moment."):
+                answer = ask_direct_question(question, api_key, temperature)
+                if answer:
+                    st.session_state.direct_question_answer = answer
+        
+        # Display direct question results
+        if 'direct_question_answer' in st.session_state:
+            answer = st.session_state.direct_question_answer
+            st.markdown("<div class='result-card'>", unsafe_allow_html=True)
+            st.markdown(f"**Question**: {question}")
+            st.markdown(f"**Answer**: {answer.get('answer', '')}")
+            st.markdown(f"**Confidence**: {format_confidence(answer.get('confidence', 0.0))}", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
     
     # Footer
     st.markdown("---")

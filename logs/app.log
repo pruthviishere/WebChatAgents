@@ -156,3 +156,72 @@
 2025-04-25 10:43:22,901 - webchat_agents - INFO - Saved answer to database for question: latest aquired company by dassault system?
 2025-04-25 10:43:22,901 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 10:43:22", "endpoint": "/analyze/question", "request": {"url": "https://3ds.com", "question": "latest aquired company by dassault system?"}, "duration_seconds": 6.09, "status": "success", "response": {"answer": "The latest acquired company by Dassault Syst\u00e8mes is AMCAD, which specializes in modeling and design solutions for microwave components, circuits, and RF sub-systems. AMCAD was founded in 2004 and is located in Limoges, France. Dassault Syst\u00e8mes completed the acquisition in June 2024.", "confidence": 0.9, "source": "web_search"}}
 2025-04-25 10:44:20,092 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:59:01,594 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 11:00:11,607 - webchat_agents - INFO - Processing direct question: what is capital of maharashtra
+?
+2025-04-25 11:00:15,712 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 11:00:15", "endpoint": "/analyze/direct-question", "request": {"question": "what is capital of maharashtra\n?", "temperature": 0.1}, "duration_seconds": 4.11, "status": "success", "response": {"answer": "The capital of Maharashtra is Mumbai.", "confidence": 1.0}}
+2025-04-25 11:02:09,663 - webchat_agents - INFO - Processing question for URL: https://www.tesla.com/, Question: what is main source of income for tesla ?
+2025-04-25 11:02:09,671 - webchat_agents - INFO - No cached company data found, proceeding with extraction for URL: https://www.tesla.com/
+2025-04-25 11:02:09,673 - webchat_agents - INFO - Selected extractor beautiful_soup for URL: https://www.tesla.com/
+2025-04-25 11:02:19,949 - webchat_agents - ERROR - Error extracting content from https://www.tesla.com/: HTTPSConnectionPool(host='www.tesla.com', port=443): Read timed out. (read timeout=10)
+2025-04-25 11:02:19,955 - webchat_agents - ERROR - Error extracting website content: HTTPSConnectionPool(host='www.tesla.com', port=443): Read timed out. (read timeout=10)
+2025-04-25 11:02:19,955 - webchat_agents - ERROR - Error answering question: HTTPSConnectionPool(host='www.tesla.com', port=443): Read timed out. (read timeout=10)
+2025-04-25 11:02:19,957 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 11:02:19", "endpoint": "/analyze/question", "request": {"url": "https://www.tesla.com/", "question": "what is main source of income for tesla ?"}, "duration_seconds": 10.29, "status": "error", "response": {"error": "HTTPSConnectionPool(host='www.tesla.com', port=443): Read timed out. (read timeout=10)"}}
+2025-04-25 11:03:34,545 - webchat_agents - INFO - Processing question for URL: https://www.tcs.com/, Question: what is main source of income for tcs
+
+ ?
+2025-04-25 11:03:34,554 - webchat_agents - INFO - No cached company data found, proceeding with extraction for URL: https://www.tcs.com/
+2025-04-25 11:03:34,557 - webchat_agents - INFO - Selected extractor beautiful_soup for URL: https://www.tcs.com/
+2025-04-25 11:03:39,014 - webchat_agents - INFO - result <Response [200]>
+2025-04-25 11:03:50,673 - webchat_agents - INFO - Successfully scraped and saved company data for URL: https://www.tcs.com/
+2025-04-25 11:03:50,674 - webchat_agents - INFO - No answer found in scraped data, proceeding with web search for question: what is main source of income for tcs
+
+ ?
+2025-04-25 11:03:50,674 - webchat_agents - INFO - Starting web search for query: what is main source of income for tcs
+
+ ?
+2025-04-25 11:03:50,674 - webchat_agents - INFO - Using DuckDuckGo as search provider
+2025-04-25 11:03:50,674 - webchat_agents - INFO - Using DuckDuckGo search service
+2025-04-25 11:03:50,675 - webchat_agents - INFO - Starting DuckDuckGo search for query: what is main source of income for tcs 
+2025-04-25 11:03:52,957 - webchat_agents - INFO - Successfully retrieved 5 results from DuckDuckGo
+2025-04-25 11:03:52,958 - webchat_agents - INFO - DuckDuckGo search completed in 2.28 seconds
+2025-04-25 11:03:52,958 - webchat_agents - INFO - Successfully found 5 search results
+2025-04-25 11:03:52,958 - webchat_agents - INFO - Search completed in 2.28 seconds
+2025-04-25 11:03:52,959 - webchat_agents - INFO - Found web search results, analyzing with LLM for question: what is main source of income for tcs
+
+ ?
+2025-04-25 11:03:56,088 - webchat_agents - INFO - Successfully generated answer from web search for question: what is main source of income for tcs
+
+ ?
+2025-04-25 11:03:56,094 - webchat_agents - INFO - Saved answer to database for question: what is main source of income for tcs
+
+ ?
+2025-04-25 11:03:56,096 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 11:03:56", "endpoint": "/analyze/question", "request": {"url": "https://www.tcs.com/", "question": "what is main source of income for tcs\n\n ?"}, "duration_seconds": 21.55, "status": "success", "response": {"answer": "The main source of income for Tata Consultancy Services (TCS) is derived from providing information technology (IT) services and consulting solutions to a diverse range of clients across various industries. TCS generates revenue through software development, IT services, business process outsourcing, and consulting services. The company serves clients globally, leveraging its expertise in technology and consulting to deliver tailored solutions that meet client needs. Additionally, TCS has a strong focus on digital transformation services, which have become increasingly important in today's market, further contributing to its revenue streams.", "confidence": 0.9, "source": "web_search"}}
+2025-04-25 11:08:55,815 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 11:13:18,681 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 11:14:21,344 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 11:14:31,028 - webchat_agents - WARNING - Invalid API key provided
+2025-04-25 11:14:41,034 - webchat_agents - INFO - Starting website analysis for URL: https://www.3ds.com
+2025-04-25 11:14:41,038 - webchat_agents - INFO - No cached data found, proceeding with extraction for URL: https://www.3ds.com
+2025-04-25 11:14:41,042 - webchat_agents - INFO - Selected extractor beautiful_soup for URL: https://www.3ds.com
+2025-04-25 11:14:41,974 - webchat_agents - INFO - result <Response [200]>
+2025-04-25 11:14:42,033 - webchat_agents - INFO - Successfully extracted content from URL: https://www.3ds.com
+2025-04-25 11:14:51,309 - webchat_agents - INFO - Successfully analyzed website content for URL: https://www.3ds.com
+2025-04-25 11:14:51,312 - webchat_agents - INFO - Saved company data to database for URL: https://www.3ds.com
+2025-04-25 11:14:51,313 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 11:14:51", "endpoint": "/analyze", "request": {"url": "https://www.3ds.com"}, "duration_seconds": 10.28, "status": "success", "response": {"company_name": "Dassault Syst\u00e8mes", "website_url": "https://www.3ds.com", "industry": {"industry": "Software and Technology", "confidence_score": 0.9, "sub_industries": ["3D Modeling", "Simulation Software", "Virtual Twin Technology", "Manufacturing Solutions", "Life Sciences"]}, "company_size": {"size_category": "large", "employee_range": "10,000+", "confidence_score": 0.85}, "location": {"headquarters": "V\u00e9lizy-Villacoublay, France", "offices": ["North America", "Europe", "Asia"], "countries_of_operation": ["France", "United States", "Germany", "Japan", "China"], "confidence_score": 0.9}, "description": "Dassault Syst\u00e8mes is a global leader in 3D design, 3D digital mock-up, and product lifecycle management (PLM) software. The company provides solutions that help businesses create sustainable innovations through virtual twin technologies.", "products_services": ["3DEXPERIENCE platform", "Virtual Twin Technology", "Simulation Software", "Manufacturing Execution Systems (MES)", "Augmented Reality Solutions"], "technologies": ["3D Modeling", "Simulation", "Virtual Twins", "Cloud Computing", "Augmented Reality"], "founded_year": 1981}}
+2025-04-25 11:15:22,595 - webchat_agents - INFO - Processing question for URL: https://www.3ds.com, Question: what is indusry of this company 
+2025-04-25 11:15:22,599 - webchat_agents - INFO - No answer found in scraped data, proceeding with web search for question: what is indusry of this company 
+2025-04-25 11:15:22,600 - webchat_agents - INFO - Starting web search for query: what is indusry of this company 
+2025-04-25 11:15:22,600 - webchat_agents - INFO - Using DuckDuckGo as search provider
+2025-04-25 11:15:22,600 - webchat_agents - INFO - Using DuckDuckGo search service
+2025-04-25 11:15:22,600 - webchat_agents - INFO - Starting DuckDuckGo search for query: what is indusry of this company
+2025-04-25 11:15:24,781 - webchat_agents - INFO - Successfully retrieved 5 results from DuckDuckGo
+2025-04-25 11:15:24,785 - webchat_agents - INFO - DuckDuckGo search completed in 2.18 seconds
+2025-04-25 11:15:24,786 - webchat_agents - INFO - Successfully found 5 search results
+2025-04-25 11:15:24,786 - webchat_agents - INFO - Search completed in 2.19 seconds
+2025-04-25 11:15:24,786 - webchat_agents - INFO - Found web search results, analyzing with LLM for question: what is indusry of this company 
+2025-04-25 11:15:27,725 - webchat_agents - INFO - Successfully generated answer from web search for question: what is indusry of this company 
+2025-04-25 11:15:27,727 - webchat_agents - INFO - Saved answer to database for question: what is indusry of this company 
+2025-04-25 11:15:27,727 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 11:15:27", "endpoint": "/analyze/question", "request": {"url": "https://www.3ds.com", "question": "what is indusry of this company "}, "duration_seconds": 5.13, "status": "success", "response": {"answer": "The company operates within the Software and Technology industry. This classification indicates that it is involved in activities related to software development, technology solutions, and related services. Given its large size and location in V\u00e9lizy-Villacoublay, France, it likely engages in significant technological innovation and software services that cater to various markets.", "confidence": 1.0, "source": "web_search"}}
+2025-04-25 11:16:10,441 - webchat_agents - INFO - Processing direct question: which companies give more that 1crore package to sde
+2025-04-25 11:16:14,887 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 11:16:14", "endpoint": "/analyze/direct-question", "request": {"question": "which companies give more that 1crore package to sde", "temperature": 0.0}, "duration_seconds": 4.45, "status": "success", "response": {"answer": "Several companies are known to offer software development engineers (SDEs) packages exceeding 1 crore INR annually. These typically include major tech firms and startups in the industry. Some of the prominent companies include:\n\n1. **Google** - Known for competitive salaries and benefits.\n2. **Microsoft** - Offers attractive compensation packages for SDEs.\n3. **Amazon** - Provides high salaries along with stock options.\n4. **Facebook (Meta)** - Known for lucrative pay and bonuses.\n5. **Apple** - Offers competitive salaries and benefits.\n6. **Uber** - Known for high compensation in tech roles.\n7. **Salesforce** - Offers substantial packages for experienced engineers.\n8. **Flipkart** - A leading e-commerce company in India that offers high salaries.\n9. **Ola** - Known for competitive pay in the tech sector.\n10. **Zomato** - Offers attractive packages for tech talent.\n\nAdditionally, many startups in the Indian tech ecosystem, especially those in the unicorn category, also offer packages exceeding 1 crore for top talent, particularly in roles requiring specialized skills or extensive experience.", "confidence": 0.9}}

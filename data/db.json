@@ -102,6 +102,135 @@
         "Artificial Intelligence"
       ],
       "founded_year": 1998
+    },
+    "https://www.tcs.com/": {
+      "company_name": "Tata Consultancy Services",
+      "website_url": "https://www.tcs.com/",
+      "industry": {
+        "industry": "Information Technology and Consulting",
+        "confidence_score": 0.95,
+        "sub_industries": [
+          "IT Services",
+          "Business Solutions",
+          "Consulting",
+          "Cloud Services",
+          "Cybersecurity",
+          "Data Analytics",
+          "Artificial Intelligence",
+          "IoT"
+        ]
+      },
+      "company_size": {
+        "size_category": "large",
+        "employee_range": "over 50000",
+        "confidence_score": 0.98
+      },
+      "location": {
+        "headquarters": "Mumbai, India",
+        "offices": [
+          "USA",
+          "Canada",
+          "UK",
+          "Australia",
+          "Singapore",
+          "Germany",
+          "Brazil",
+          "South Africa"
+        ],
+        "countries_of_operation": [
+          "India",
+          "USA",
+          "Canada",
+          "Brazil",
+          "UK",
+          "Australia",
+          "Germany",
+          "South Africa",
+          "China",
+          "Japan",
+          "Singapore",
+          "UAE"
+        ],
+        "confidence_score": 0.95
+      },
+      "description": "TCS is a global leader in IT services, consulting, and business solutions, leveraging technology for business transformation and helping catalyze change.",
+      "products_services": [
+        "Artificial Intelligence",
+        "Cloud Services",
+        "Cognitive Business Operations",
+        "Consulting",
+        "Cybersecurity",
+        "Data and Analytics",
+        "Enterprise Solutions",
+        "IoT and Digital Engineering",
+        "Network Solutions and Services",
+        "Sustainability Services",
+        "TCS ADD\u2122",
+        "TCS BANCS\u2122",
+        "TCS ERP on Cloud",
+        "TCS OmniStore\u2122",
+        "Quartz\u2122 \u2013 The Smart Ledgers\u2122"
+      ],
+      "technologies": [
+        "Artificial Intelligence",
+        "Cloud Computing",
+        "Cybersecurity",
+        "Data Analytics",
+        "IoT"
+      ],
+      "founded_year": 1968
+    },
+    "https://www.3ds.com": {
+      "company_name": "Dassault Syst\u00e8mes",
+      "website_url": "https://www.3ds.com",
+      "industry": {
+        "industry": "Software and Technology",
+        "confidence_score": 0.9,
+        "sub_industries": [
+          "3D Modeling",
+          "Simulation Software",
+          "Virtual Twin Technology",
+          "Manufacturing Solutions",
+          "Life Sciences"
+        ]
+      },
+      "company_size": {
+        "size_category": "large",
+        "employee_range": "10,000+",
+        "confidence_score": 0.85
+      },
+      "location": {
+        "headquarters": "V\u00e9lizy-Villacoublay, France",
+        "offices": [
+          "North America",
+          "Europe",
+          "Asia"
+        ],
+        "countries_of_operation": [
+          "France",
+          "United States",
+          "Germany",
+          "Japan",
+          "China"
+        ],
+        "confidence_score": 0.9
+      },
+      "description": "Dassault Syst\u00e8mes is a global leader in 3D design, 3D digital mock-up, and product lifecycle management (PLM) software. The company provides solutions that help businesses create sustainable innovations through virtual twin technologies.",
+      "products_services": [
+        "3DEXPERIENCE platform",
+        "Virtual Twin Technology",
+        "Simulation Software",
+        "Manufacturing Execution Systems (MES)",
+        "Augmented Reality Solutions"
+      ],
+      "technologies": [
+        "3D Modeling",
+        "Simulation",
+        "Virtual Twins",
+        "Cloud Computing",
+        "Augmented Reality"
+      ],
+      "founded_year": 1981
     }
   },
   "questions": {
@@ -114,6 +243,20 @@
       "latest aquired company by dassault system?": {
         "answer": "The latest acquired company by Dassault Syst\u00e8mes is AMCAD, which specializes in modeling and design solutions for microwave components, circuits, and RF sub-systems. AMCAD was founded in 2004 and is located in Limoges, France. Dassault Syst\u00e8mes completed the acquisition in June 2024.",
         "confidence": 0.9,
+        "source": "web_search"
+      }
+    },
+    "https://www.tcs.com/": {
+      "what is main source of income for tcs\n\n ?": {
+        "answer": "The main source of income for Tata Consultancy Services (TCS) is derived from providing information technology (IT) services and consulting solutions to a diverse range of clients across various industries. TCS generates revenue through software development, IT services, business process outsourcing, and consulting services. The company serves clients globally, leveraging its expertise in technology and consulting to deliver tailored solutions that meet client needs. Additionally, TCS has a strong focus on digital transformation services, which have become increasingly important in today's market, further contributing to its revenue streams.",
+        "confidence": 0.9,
+        "source": "web_search"
+      }
+    },
+    "https://www.3ds.com": {
+      "what is indusry of this company ": {
+        "answer": "The company operates within the Software and Technology industry. This classification indicates that it is involved in activities related to software development, technology solutions, and related services. Given its large size and location in V\u00e9lizy-Villacoublay, France, it likely engages in significant technological innovation and software services that cater to various markets.",
+        "confidence": 1.0,
         "source": "web_search"
       }
     }

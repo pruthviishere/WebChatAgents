@@ -12,3 +12,5 @@ playwright
 pydantic-settings 
 google-search-results==2.4.2  # For serpapi 
 duckduckgo-search==4.1.1  # For DuckDuckGo search 
+fastapi[standard]
+

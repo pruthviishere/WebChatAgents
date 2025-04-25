@@ -29,7 +29,7 @@ app.add_middleware(
 )
 
 # Setup security
-setup_security(app)
+# setup_security(app)
 
 # Create the router
 router = APIRouter(
@@ -49,3 +49,11 @@ async def health_check():
 @app.on_event("startup")
 async def startup_event():
     logger.info(f"Starting {settings.PROJECT_NAME}")
+
+@app.get("/hello")
+def say_hello():
+    return {"msg": "Hey there!"}
+
+# @app.get("/")
+# def read_root():
+#     return {"message": "Hello from FastAPI root!"}

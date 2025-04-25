@@ -32,8 +32,11 @@ class DuckDuckGoSearchService:
             cleaned_query = DuckDuckGoSearchService._clean_query(query)
             logger.info(f"Starting DuckDuckGo search for query: {cleaned_query}")
             
-            # Initialize DuckDuckGo search with no additional parameters
+            # Initialize DuckDuckGo search without proxies
             ddgs = DDGS()
+            
+            # Add a small delay to avoid rate limiting
+            time.sleep(1)
             
             # Try different search parameters if first attempt fails
             search_params = [

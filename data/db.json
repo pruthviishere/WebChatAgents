@@ -110,6 +110,11 @@
         "answer": "Software and Technology",
         "confidence": 0.95,
         "source": "industry_data"
+      },
+      "latest aquired company by dassault system?": {
+        "answer": "The latest acquired company by Dassault Syst\u00e8mes is AMCAD, which specializes in modeling and design solutions for microwave components, circuits, and RF sub-systems. AMCAD was founded in 2004 and is located in Limoges, France. Dassault Syst\u00e8mes completed the acquisition in June 2024.",
+        "confidence": 0.9,
+        "source": "web_search"
       }
     }
   }

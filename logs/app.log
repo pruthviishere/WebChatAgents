@@ -62,3 +62,97 @@
 2025-04-25 01:35:48,447 - webchat_agents - INFO - Starting WebChatAgents
 2025-04-25 01:36:42,465 - webchat_agents - INFO - Starting WebChatAgents
 2025-04-25 01:36:54,387 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 01:37:51,177 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:22:27,336 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:23:08,917 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:23:19,188 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:23:29,573 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:23:54,637 - webchat_agents - INFO - Starting DuckDuckGo search for query: test query
+2025-04-25 10:23:54,637 - webchat_agents - INFO - Successfully retrieved 2 results from DuckDuckGo
+2025-04-25 10:23:54,638 - webchat_agents - INFO - DuckDuckGo search completed in 0.00 seconds
+2025-04-25 10:23:54,639 - webchat_agents - INFO - Starting DuckDuckGo search for query: test query
+2025-04-25 10:23:54,639 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: test query
+2025-04-25 10:23:54,640 - webchat_agents - INFO - Starting DuckDuckGo search for query: test query
+2025-04-25 10:23:54,640 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate'}: Test error
+2025-04-25 10:23:54,640 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 10, 'safesearch': 'off'}: Test error
+2025-04-25 10:23:54,640 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate', 'time': 'y'}: Test error
+2025-04-25 10:23:54,640 - webchat_agents - WARNING - Fallback search also failed: Test error
+2025-04-25 10:23:54,640 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: test query
+2025-04-25 10:23:54,642 - webchat_agents - INFO - Starting DuckDuckGo search for query: test query
+2025-04-25 10:23:54,643 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate'}: First attempt failed
+2025-04-25 10:23:54,643 - webchat_agents - INFO - Successfully retrieved 1 results from DuckDuckGo
+2025-04-25 10:23:54,643 - webchat_agents - INFO - DuckDuckGo search completed in 0.00 seconds
+2025-04-25 10:24:58,088 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:25:02,273 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:25:20,344 - webchat_agents - INFO - Starting DuckDuckGo search for query: test company
+2025-04-25 10:25:20,345 - webchat_agents - INFO - Successfully retrieved 1 results from DuckDuckGo
+2025-04-25 10:25:20,345 - webchat_agents - INFO - DuckDuckGo search completed in 0.00 seconds
+2025-04-25 10:25:20,394 - webchat_agents - INFO - Starting DuckDuckGo search for query: nonexistent company
+2025-04-25 10:25:20,394 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: nonexistent company
+2025-04-25 10:25:20,396 - webchat_agents - INFO - Starting DuckDuckGo search for query: test company
+2025-04-25 10:25:20,396 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate'}: Search failed
+2025-04-25 10:25:20,396 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 10, 'safesearch': 'off'}: Search failed
+2025-04-25 10:25:20,396 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate', 'time': 'y'}: Search failed
+2025-04-25 10:25:20,396 - webchat_agents - WARNING - Fallback search also failed: Search failed
+2025-04-25 10:25:20,396 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: test company
+2025-04-25 10:26:18,421 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:26:34,904 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:26:36,456 - webchat_agents - INFO - Starting DuckDuckGo search for query: test company
+2025-04-25 10:26:36,456 - webchat_agents - INFO - Successfully retrieved 1 results from DuckDuckGo
+2025-04-25 10:26:36,457 - webchat_agents - INFO - DuckDuckGo search completed in 0.00 seconds
+2025-04-25 10:26:36,458 - webchat_agents - INFO - Starting DuckDuckGo search for query: nonexistent company
+2025-04-25 10:26:36,458 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: nonexistent company
+2025-04-25 10:26:36,472 - webchat_agents - INFO - Starting DuckDuckGo search for query: test company
+2025-04-25 10:26:36,472 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate'}: Search failed
+2025-04-25 10:26:36,472 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 10, 'safesearch': 'off'}: Search failed
+2025-04-25 10:26:36,472 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate', 'time': 'y'}: Search failed
+2025-04-25 10:26:36,472 - webchat_agents - WARNING - Fallback search also failed: Search failed
+2025-04-25 10:26:36,472 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: test company
+2025-04-25 10:27:45,025 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:27:54,335 - webchat_agents - INFO - Starting DuckDuckGo search for query: test company
+2025-04-25 10:27:54,335 - webchat_agents - INFO - Successfully retrieved 1 results from DuckDuckGo
+2025-04-25 10:27:54,335 - webchat_agents - INFO - DuckDuckGo search completed in 0.00 seconds
+2025-04-25 10:27:54,337 - webchat_agents - INFO - Starting DuckDuckGo search for query: nonexistent company
+2025-04-25 10:27:54,337 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: nonexistent company
+2025-04-25 10:27:54,351 - webchat_agents - INFO - Starting DuckDuckGo search for query: test company
+2025-04-25 10:27:54,351 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate'}: Search failed
+2025-04-25 10:27:54,351 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 10, 'safesearch': 'off'}: Search failed
+2025-04-25 10:27:54,351 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate', 'time': 'y'}: Search failed
+2025-04-25 10:27:54,351 - webchat_agents - WARNING - Fallback search also failed: Search failed
+2025-04-25 10:27:54,351 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: test company
+2025-04-25 10:28:34,056 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:28:34,471 - webchat_agents - INFO - Starting DuckDuckGo search for query: test company
+2025-04-25 10:28:34,471 - webchat_agents - INFO - Successfully retrieved 1 results from DuckDuckGo
+2025-04-25 10:28:34,471 - webchat_agents - INFO - DuckDuckGo search completed in 0.00 seconds
+2025-04-25 10:28:34,472 - webchat_agents - INFO - Starting DuckDuckGo search for query: nonexistent company
+2025-04-25 10:28:34,472 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: nonexistent company
+2025-04-25 10:28:34,482 - webchat_agents - INFO - Starting DuckDuckGo search for query: test company
+2025-04-25 10:28:34,483 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate'}: Search failed
+2025-04-25 10:28:34,483 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 10, 'safesearch': 'off'}: Search failed
+2025-04-25 10:28:34,483 - webchat_agents - WARNING - Search attempt failed with parameters {'max_results': 5, 'safesearch': 'moderate', 'time': 'y'}: Search failed
+2025-04-25 10:28:34,483 - webchat_agents - WARNING - Fallback search also failed: Search failed
+2025-04-25 10:28:34,483 - webchat_agents - WARNING - No results found in DuckDuckGo search for query: test company
+2025-04-25 10:31:34,935 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:34:32,349 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:35:12,382 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:37:14,320 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:38:12,686 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:38:33,691 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:39:06,071 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:40:48,622 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:41:13,373 - webchat_agents - INFO - Starting WebChatAgents
+2025-04-25 10:43:16,816 - webchat_agents - INFO - Processing question for URL: https://3ds.com, Question: latest aquired company by dassault system?
+2025-04-25 10:43:16,825 - webchat_agents - INFO - No answer found in scraped data, proceeding with web search for question: latest aquired company by dassault system?
+2025-04-25 10:43:16,826 - webchat_agents - INFO - Starting web search for query: latest aquired company by dassault system?
+2025-04-25 10:43:16,826 - webchat_agents - INFO - Using DuckDuckGo as search provider
+2025-04-25 10:43:16,827 - webchat_agents - INFO - Using DuckDuckGo search service
+2025-04-25 10:43:16,828 - webchat_agents - INFO - Starting DuckDuckGo search for query: latest aquired company by dassault system
+2025-04-25 10:43:18,806 - webchat_agents - INFO - Successfully retrieved 5 results from DuckDuckGo
+2025-04-25 10:43:18,807 - webchat_agents - INFO - DuckDuckGo search completed in 1.98 seconds
+2025-04-25 10:43:18,807 - webchat_agents - INFO - Successfully found 5 search results
+2025-04-25 10:43:18,807 - webchat_agents - INFO - Search completed in 1.98 seconds
+2025-04-25 10:43:18,807 - webchat_agents - INFO - Found web search results, analyzing with LLM for question: latest aquired company by dassault system?
+2025-04-25 10:43:22,899 - webchat_agents - INFO - Successfully generated answer from web search for question: latest aquired company by dassault system?
+2025-04-25 10:43:22,901 - webchat_agents - INFO - Saved answer to database for question: latest aquired company by dassault system?
+2025-04-25 10:43:22,901 - webchat_agents - INFO - API Call: {"timestamp": "2025-04-25 10:43:22", "endpoint": "/analyze/question", "request": {"url": "https://3ds.com", "question": "latest aquired company by dassault system?"}, "duration_seconds": 6.09, "status": "success", "response": {"answer": "The latest acquired company by Dassault Syst\u00e8mes is AMCAD, which specializes in modeling and design solutions for microwave components, circuits, and RF sub-systems. AMCAD was founded in 2004 and is located in Limoges, France. Dassault Syst\u00e8mes completed the acquisition in June 2024.", "confidence": 0.9, "source": "web_search"}}
+2025-04-25 10:44:20,092 - webchat_agents - INFO - Starting WebChatAgents

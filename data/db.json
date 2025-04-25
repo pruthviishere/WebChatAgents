@@ -259,6 +259,13 @@
         "confidence": 1.0,
         "source": "web_search"
       }
+    },
+    "https://www.google.com": {
+      "what is income of this company": {
+        "answer": "The income of the company cannot be determined from the provided information. While the company operates in the technology industry and is located in Mountain View, California, specific financial data such as revenue, expenses, or net income is not included in the details. To accurately assess the company's income, one would need to review its income statement, which outlines revenues, costs, gross profit, and net profit over a specific period. Without this financial data, it is impossible to calculate or estimate the company's income.",
+        "confidence": 0.9,
+        "source": "web_search"
+      }
     }
   }
 }
